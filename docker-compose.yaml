@@ -1,0 +1,11 @@
+version: "3"
+services:
+  pro-a-flask:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - 80:80
+    expose:
+      - 80
