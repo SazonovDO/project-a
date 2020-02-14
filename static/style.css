@@ -1,0 +1,20 @@
+#comment {
+    font-size: 17pt;
+    color: bisque;
+}
+
+div {
+    text-align: center;
+    color: bisque;
+}
+table {
+    margin-left: 44%;
+}
+#reg {
+    background-color: greenyellow;
+    margin-left: 47%;
+}
+body {
+    background-image: url(static/bg.jpg);
+    background-color: bisque; 
+}
