@@ -5,6 +5,14 @@ import argparse
 app = Flask(__name__)
 
 
+@app.route('/information')
+def inf_page():
+    return render_template('information.html')
+
+@app.route('/registration')
+def reg_page():
+    return render_template('registration.html')
+
 @app.route('/')
 def index_page():
     return render_template('index.html')

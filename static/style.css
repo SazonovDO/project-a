@@ -15,6 +15,6 @@ table {
     margin-left: 47%;
 }
 body {
-    background-image: url(static/bg.jpg);
+    /* background-image: url(static/bg.jpg); */
     background-color: bisque; 
 }
