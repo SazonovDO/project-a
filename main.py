@@ -4,6 +4,11 @@ import argparse
 
 app = Flask(__name__)
 
+@app.route('/who_are_you')
+def wau_page():
+    info = request.user_agent
+    addr = request.remote_addr
+    return render_template('who_are_u.html', info=info, addr=addr)
 
 @app.route('/information')
 def inf_page():
