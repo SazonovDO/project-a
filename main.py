@@ -1,14 +1,19 @@
 from flask import Flask, render_template, request, redirect
 from waitress import serve
 import argparse
+import datetime
 
+all_clients = {}
 app = Flask(__name__)
 
 @app.route('/who_are_you')
 def wau_page():
     info = request.user_agent
     addr = request.remote_addr
-    return render_template('who_are_u.html', info=info, addr=addr)
+    clients = []
+    for key_client in all_clients:
+        clients.append(all_clients[key_client])
+    return render_template('who_are_u.html', info=info, addr=addr, clients=clients)
 
 @app.route('/information')
 def inf_page():
@@ -18,8 +23,18 @@ def inf_page():
 def reg_page():
     return render_template('registration.html')
 
+def register_new_user(ip, info):
+    global all_clients
+    last_visit = datetime.datetime.today().strftime('%Y-%m-%d  %H:%M')
+    new_key = '{}-{}'.format(ip, info)
+    values = {'ip': ip, 'info': info, 'last_visit': last_visit}
+    all_clients.update({new_key: values})
+
 @app.route('/')
 def index_page():
+    ip = request.remote_addr
+    info = request.user_agent
+    register_new_user(ip, info)
     return render_template('index.html')
 
 

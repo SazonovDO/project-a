@@ -16,5 +16,20 @@
     <br>
     {{addr}}
 
+    <table border="1">
+        <tr>
+            <td>Ip address:</td>
+            <td>User agent</td>
+            <td>last viseted</td>
+        </tr>
+        {% for client in clients %}
+            <tr>
+                <td>{{client.ip}}</td>
+                <td>{{client.info}}</td>
+                <td>{{client.last_visit}}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
 </body>
 </html>
