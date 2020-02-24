@@ -1,11 +1,11 @@
 #comment {
     font-size: 17pt;
-    color: bisque;
+    color: black;
 }
 
 div {
     text-align: center;
-    color: bisque;
+    color: black;
 }
 table {
     margin-left: 44%;
@@ -16,5 +16,5 @@ table {
 }
 body {
     /* background-image: url(static/bg.jpg); */
-    background-color: bisque; 
+    background-color: white;
 }
