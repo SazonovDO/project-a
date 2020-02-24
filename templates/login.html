@@ -1,0 +1,26 @@
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="/static/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+
+    <div class="error_message">{{message}}</div>
+
+    <form action="/login" method="post">
+
+    <div id="txtl">Type your name</div>
+    <center><input type="text" name="login"></center>
+    <br>
+    <div id="txtp" >Type your pasword</div>
+    <center><input type="password" name="password"></center>
+    <br>
+
+    <center><input type="submit" value="Login"></center>
+
+    </form>
+
+</body>
+</html>

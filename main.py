@@ -23,6 +23,18 @@ def inf_page():
 def reg_page():
     return render_template('registration.html')
 
+@app.route('/login', methods=['GET', 'POST'])
+def log_page():
+    message = ''
+    if request.method == 'POST':
+        user_name = request.form.get('login')
+        user_pass = request.form.get('password')
+        if user_name == 'admin' and user_pass == '123':
+            return 'login good'
+        else:
+            message = 'not correct password'
+    return render_template('login.html', message=message)
+
 def register_new_user(ip, info):
     global all_clients
     last_visit = datetime.datetime.today().strftime('%Y-%m-%d  %H:%M')

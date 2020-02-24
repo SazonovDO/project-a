@@ -18,3 +18,8 @@ body {
     /* background-image: url(static/bg.jpg); */
     background-color: white;
 }
+
+div.error_message {
+    color: red;
+    background-color: #96f2ff;
+}
