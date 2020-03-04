@@ -2,11 +2,17 @@ from flask import Flask, render_template, request, redirect
 from waitress import serve
 import argparse
 import datetime
+from flask_login import LoginManager,current_user,login_required,login_user,logout_user
+import models
 
 all_clients = {}
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'kndgkakjdjaclk9dlsknknl'
+login_manager = LoginManager()
+login_manager.init_app(app)
 
 @app.route('/who_are_you')
+@login_required
 def wau_page():
     info = request.user_agent
     addr = request.remote_addr
@@ -19,6 +25,12 @@ def wau_page():
 def inf_page():
     return render_template('information.html')
 
+@login_manager.user_loader
+def load_user(user_id):
+    user = models.User(user_id)
+    return user
+
+
 @app.route('/registration')
 def reg_page():
     return render_template('registration.html')
@@ -30,10 +42,18 @@ def log_page():
         user_name = request.form.get('login')
         user_pass = request.form.get('password')
         if user_name == 'admin' and user_pass == '123':
-            return 'login good'
+            user = models.User(1)
+            login_user(user)
+            return redirect('/')
         else:
             message = 'not correct password'
     return render_template('login.html', message=message)
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect('/')
+
 
 def register_new_user(ip, info):
     global all_clients
@@ -58,4 +78,4 @@ if __name__ == "__main__":
     if args.prod:
         serve(app, host='0.0.0.0', port=80)
     else:
-        app.run()
+        app.run(debug=True)
