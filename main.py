@@ -4,12 +4,15 @@ import argparse
 import datetime
 from flask_login import LoginManager,current_user,login_required,login_user,logout_user
 import models
+import bulls_and_cows
 
 all_clients = {}
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'kndgkakjdjaclk9dlsknknl'
 login_manager = LoginManager()
 login_manager.init_app(app)
+
+app.register_blueprint(bulls_and_cows.bulls_game, url_prefix='/bulls')
 
 @app.route('/who_are_you')
 @login_required
@@ -35,7 +38,7 @@ def load_user(user_id):
 def reg_page():
     return render_template('registration.html')
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/login',methods=['GET', 'POST'])
 def log_page():
     message = ''
     if request.method == 'POST':
