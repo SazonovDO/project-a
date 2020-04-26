@@ -5,12 +5,19 @@
     <title>Bulls and Cows</title>
 </head>
 <body>
-    {{ message }}<br>
+    History:
+    {% for line in history %}
+        {{ line }}<br>
+    {% endfor %}
+    <h3>{{ message }}</h3><br>
     <form action="/bulls/guss" method="post">
         Type your guss:
         <input type="text" name="user_number">
         <input type="submit" value="try to guss">
     </form>
+
+<a href="/">Exit</a><br>
+<a href="/bulls/start">Start new game</a>
 
 </body>
 </html>

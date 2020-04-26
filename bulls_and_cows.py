@@ -6,8 +6,6 @@ bulls_game = blueprints.Blueprint(__name__, 'bulls_game')
 
 @bulls_game.route('/')
 def cows_bulls():
-    print(session.get('computer_number'))
-
     return render_template('rule_game_cows.html')
 
 
@@ -16,8 +14,10 @@ def start_game():
     computer_no = 1111
     while not check_repeated(computer_no):
         computer_no = random.randrange(1000, 10000)
+    print(computer_no)
     session['computer_number'] = computer_no
-    return render_template('cows_bulls.html', message='number was made up')
+    session['history'] = []
+    return render_template('cows_bulls.html', message='number was made up', history=[])
 
 
 def check_repeated(number):
@@ -50,8 +50,18 @@ def validate_answer(secret, users):
         for k in range(4):
             if l1[k] == l2[i] and i != k:
                 cow += 1
-    answer = 'yuo have - {} bulls, and {} cows'.format(bull, cow)
+    answer = 'you sad {} in this number you have - {} bulls, and {} cows'.format(
+        users,
+        bull,
+        cow
+    )
     return answer
+
+
+def check_win(secret, users):
+    if secret == users:
+        return True
+    return False
 
 
 @bulls_game.route('/guss', methods=['post'])
@@ -59,4 +69,9 @@ def guss():
     user_no = int(request.form.get('user_number', 0))
     computer_no = int(session.get('computer_number'))
     answer = validate_answer(computer_no, user_no)
-    return render_template('cows_bulls.html', message=answer)
+    history = session.get('history', [])
+    history.append(answer)
+    session['history'] = history
+    if check_win(computer_no, user_no):
+        return render_template('win_cows_bulls.html')
+    return render_template('cows_bulls.html', message=answer, history=history)
